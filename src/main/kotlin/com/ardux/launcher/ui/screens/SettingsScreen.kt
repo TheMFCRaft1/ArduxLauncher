@@ -69,12 +69,22 @@ class SettingsScreen(private val onBack: () -> Unit) : VBox() {
                 }
             }
 
+            val resetBtn = Button("Factory Reset").apply {
+                style = "-fx-background-color: #ef4444; -fx-text-fill: white; -fx-padding: 10 20; -fx-background-radius: 10;"
+                setOnAction {
+                    ConfigManager.reset()
+                    // Delete library games (optional but requested)
+                    java.io.File(ConfigManager.config.libraryPath).listFiles()?.forEach { it.deleteRecursively() }
+                    kotlin.system.exitProcess(0)
+                }
+            }
+
             val cancelBtn = Button("Cancel").apply {
                 styleClass.add("power-menu-button")
                 setOnAction { onBack() }
             }
             
-            children.addAll(saveBtn, cancelBtn)
+            children.addAll(saveBtn, resetBtn, cancelBtn)
         }
 
         children.addAll(title, settingsBox, actionBox)

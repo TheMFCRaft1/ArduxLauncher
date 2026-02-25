@@ -9,6 +9,9 @@ import java.io.File
 data class GameMetadata(
     val title: String,
     val developer: String = "Unknown",
+    val version: String = "1.0.0",
+    val description: String = "",
+    val icon: String = "icon.png",
     val executable: String = "start.sh"
 )
 
@@ -27,8 +30,8 @@ class GameScanner(val libraryPath: String) {
                     Game(
                         id = dir.name,
                         title = metadata.title,
-                        developer = metadata.developer,
-                        iconPath = File(dir, "icon.png").takeIf { it.exists() }?.absolutePath,
+                        developer = "${metadata.developer} (v${metadata.version})",
+                        iconPath = File(dir, metadata.icon).takeIf { it.exists() }?.absolutePath,
                         executablePath = File(dir, metadata.executable).absolutePath
                     )
                 } catch (e: Exception) {

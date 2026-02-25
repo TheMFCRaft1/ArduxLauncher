@@ -14,12 +14,17 @@ data class AppConfig(
 )
 
 object ConfigManager {
-    private val configFile = File(System.getProperty("user.home"), ".ardux_launcher.json")
+    private val configDir = File(System.getProperty("user.home"), ".config/ardux")
+    private val configFile = File(configDir, "config.json")
     private val json = Json { prettyPrint = true; ignoreUnknownKeys = true }
     
     var config: AppConfig = load()
 
     fun load(): AppConfig {
+        if (!configDir.exists()) {
+            configDir.mkdirs()
+        }
+        
         return if (configFile.exists()) {
             try {
                 json.decodeFromString<AppConfig>(configFile.readText())
@@ -27,11 +32,22 @@ object ConfigManager {
                 AppConfig()
             }
         } else {
-            AppConfig()
+            val config = AppConfig()
+            // Ensure default library path exists
+            File(config.libraryPath).mkdirs()
+            config
         }
     }
 
     fun save() {
+        if (!configDir.exists()) {
+            configDir.mkdirs()
+        }
         configFile.writeText(json.encodeToString(config))
+    }
+
+    fun reset() {
+        configFile.delete()
+        config = AppConfig()
     }
 }

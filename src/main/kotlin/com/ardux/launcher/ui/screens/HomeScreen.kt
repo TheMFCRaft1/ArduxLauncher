@@ -59,17 +59,13 @@ class HomeScreen : BorderPane() {
         grid.prefColumns = 4
         grid.alignment = Pos.TOP_LEFT
 
-        val scanner = com.ardux.launcher.service.GameScanner("/home/max/ArduxGames")
-        var games = scanner.scan()
+        val scanner = com.ardux.launcher.service.GameScanner(com.ardux.launcher.service.ConfigManager.config.libraryPath)
+        val games = scanner.scan()
         
         if (games.isEmpty()) {
-            games = listOf(
-                Game("1", "Cyber Ardux", "Ardux Studio", null, "/usr/bin/echo"),
-                Game("2", "Neon Racer", "Velocity Games", null, "/usr/bin/echo"),
-                Game("3", "Void Runner", "Cosmic Dev", null, "/usr/bin/echo"),
-                Game("4", "Pulse Strike", "Impact Labs", null, "/usr/bin/echo"),
-                Game("5", "Meta Quest", "Quantum Pixels", null, "/usr/bin/echo")
-            )
+            grid.children.add(Label("No games found in ${scanner.libraryPath}. Add metadata.json to your game folders.").apply {
+                style = "-fx-text-fill: -ardux-text-dim; -fx-padding: 20;"
+            })
         }
 
         games.forEach { game ->
