@@ -1,0 +1,178 @@
+/* Ardux Premium Console Design System */
+
+.root {
+    -fx-base: #0f0f13;
+    -fx-background-color: #0f0f13;
+    background-color: #0f0f13;
+    
+    /* Brand Colors */
+    -ardux-primary: #6366f1;
+    -ardux-secondary: #a855f7;
+    -ardux-accent: #22d3ee;
+    -ardux-text: #f8fafc;
+    -ardux-text-dim: #94a3b8;
+    
+    /* Glassmorphism Effect */
+    -ardux-glass: rgba(30, 30, 40, 0.7);
+    -ardux-glass-border: rgba(255, 255, 255, 0.1);
+}
+
+.label {
+    -fx-text-fill: -ardux-text;
+    -fx-font-family: "Inter", "Segoe UI", system-ui;
+    font-family: "Inter", "Segoe UI", system-ui;
+}
+
+.main-container {
+    -fx-background-color: linear-gradient(to bottom right, #111118, #09090b);
+    background-color: #111118;
+}
+
+.game-card {
+    -fx-background-color: -ardux-glass;
+    background-color: rgba(30, 30, 40, 0.7);
+    -fx-background-radius: 16;
+    -fx-border-color: -ardux-glass-border;
+    border-color: rgba(255, 255, 255, 0.1);
+    -fx-border-width: 1;
+    border-width: 1;
+    -fx-border-radius: 16;
+    border-radius: 16;
+    -fx-padding: 10;
+    padding: 10;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 10, 0, 0, 5);
+}
+
+.game-card:hover, .game-card:focused {
+    -fx-background-color: rgba(99, 102, 241, 0.15);
+    background-color: rgba(99, 102, 241, 0.15);
+    -fx-border-color: -ardux-primary;
+    border-color: #6366f1;
+    -fx-border-width: 2;
+    border-width: 2;
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+}
+
+.status-bar {
+    -fx-background-color: rgba(0, 0, 0, 0.4);
+    background-color: rgba(0, 0, 0, 0.4);
+    -fx-padding: 10 20;
+    padding: 10 20;
+}
+
+.status-label {
+    -fx-font-size: 14;
+    font-size: 14;
+    -fx-font-weight: bold;
+    font-weight: bold;
+    -fx-text-fill: -ardux-text-dim;
+}
+
+.power-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: -ardux-text-dim;
+    -fx-font-size: 18;
+    -fx-padding: 5 10;
+    -fx-cursor: hand;
+    -fx-transition: all 0.2s ease-in-out;
+}
+
+.power-button:hover {
+    -fx-text-fill: -ardux-primary;
+    -fx-scale-x: 1.1;
+    -fx-scale-y: 1.1;
+}
+
+.power-button:pressed {
+    -fx-scale-x: 0.95;
+    -fx-scale-y: 0.95;
+}
+
+.game-title {
+    -fx-font-size: 18;
+    font-size: 18;
+    -fx-font-weight: bold;
+    font-weight: bold;
+}
+
+.category-header {
+    -fx-font-size: 24;
+    font-size: 24;
+    -fx-font-weight: bold;
+    font-weight: bold;
+    -fx-text-fill: white;
+}
+
+/* Power Menu Styles */
+.power-menu-container {
+    -fx-background-color: rgba(15, 15, 20, 0.95);
+    -fx-padding: 30;
+    -fx-background-radius: 20;
+    -fx-border-color: rgba(255,255,255,0.1);
+    -fx-border-radius: 20;
+    -fx-spacing: 20;
+}
+
+.power-menu-title {
+    -fx-text-fill: white;
+    -fx-font-size: 24;
+    -fx-font-weight: bold;
+}
+
+.power-menu-button {
+    -fx-background-color: rgba(255,255,255,0.05);
+    -fx-text-fill: white;
+    -fx-font-size: 16;
+    -fx-padding: 10 30;
+    -fx-background-radius: 10;
+    -fx-pref-width: 240;
+}
+
+.power-menu-button:hover {
+    -fx-background-color: -ardux-primary;
+    -fx-text-fill: white;
+}
+
+/* Setup & Settings Styles */
+.setup-title {
+    -fx-font-size: 48;
+    font-size: 48;
+    -fx-font-weight: bold;
+    font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.input-field {
+    -fx-background-color: -ardux-glass;
+    background-color: rgba(30, 30, 40, 0.7);
+    -fx-text-fill: white;
+    -fx-padding: 10;
+    -fx-border-color: -ardux-glass-border;
+    border-color: rgba(255, 255, 255, 0.1);
+    -fx-border-radius: 8;
+    border-radius: 8;
+}
+
+.primary-button {
+    -fx-background-color: -ardux-primary;
+    background-color: #6366f1;
+    -fx-text-fill: white;
+    -fx-font-size: 18;
+    font-size: 18;
+    -fx-padding: 15 40;
+    padding: 15 40;
+    -fx-background-radius: 30;
+    background-radius: 30;
+}
+
+.primary-button:hover {
+    -fx-background-color: -ardux-secondary;
+    background-color: #a855f7;
+}
+
+.settings-item {
+    -fx-spacing: 20;
+    -fx-padding: 10;
+    -fx-alignment: center-left;
+}
