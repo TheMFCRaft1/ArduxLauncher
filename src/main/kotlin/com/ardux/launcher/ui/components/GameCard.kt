@@ -45,10 +45,18 @@ class GameCard(val game: Game) : VBox() {
             }
         }
         
+        setOnMouseClicked {
+            launchGame()
+        }
+        
         setOnKeyPressed { event ->
             if (event.code.toString() == "ENTER") {
-                com.ardux.launcher.service.GameLauncher().launch(game)
+                launchGame()
             }
         }
+    }
+
+    private fun launchGame() {
+        com.ardux.launcher.service.GameLauncher().launch(game)
     }
 }
