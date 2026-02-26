@@ -3,7 +3,6 @@ plugins {
     kotlin("plugin.serialization") version "1.9.22"
     id("org.openjfx.javafxplugin") version "0.1.0"
     application
-    id("com.github.johnrengelman.shadow") version "8.1.1"
 }
 
 group = "com.ardux.launcher"
