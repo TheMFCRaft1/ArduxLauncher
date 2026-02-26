@@ -26,12 +26,6 @@ javafx {
     modules("javafx.controls", "javafx.fxml", "javafx.graphics")
 }
 
-tasks.shadowJar {
-    manifest {
-        attributes["Main-Class"] = "com.ardux.launcher.MainKt"
-    }
-}
-
 application {
     mainClass.set("com.ardux.launcher.MainKt")
 }
