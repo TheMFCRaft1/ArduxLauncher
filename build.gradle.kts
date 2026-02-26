@@ -2,6 +2,7 @@ plugins {
     kotlin("jvm") version "1.9.22"
     kotlin("plugin.serialization") version "1.9.22"
     id("org.openjfx.javafxplugin") version "0.1.0"
+    id("org.beryx.jlink") version "3.0.1"
     application
 }
 
