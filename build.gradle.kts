@@ -36,9 +36,17 @@ dependencies {
 /////////////////////////////
 // JavaFX Konfiguration
 /////////////////////////////
+val javafxPlatform = project.findProperty("javafxPlatform")?.toString() ?: "linux"
+
 javafx {
     version = "21"
     modules("javafx.controls", "javafx.fxml", "javafx.graphics")
+}
+
+dependencies {
+    implementation("org.openjfx:javafx-graphics:21:$javafxPlatform")
+    implementation("org.openjfx:javafx-controls:21:$javafxPlatform")
+    implementation("org.openjfx:javafx-base:21:$javafxPlatform")
 }
 
 /////////////////////////////
@@ -60,7 +68,7 @@ tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
 // Erstellt eine ausführbare JAR mit allen Dependencies
 /////////////////////////////
 tasks.named<com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar>("shadowJar") {
-    archiveBaseName.set("ArduxLauncher")   // Name der JAR
+    archiveBaseName.set("ArduxLauncher-$javafxPlatform")   // Name der JAR inkl. Plattform
     archiveClassifier.set("all")           // Klassifizierer für Fat Jar
     archiveVersion.set("1.0-SNAPSHOT")     // Versionsnummer
     manifest {
@@ -77,8 +85,8 @@ tasks.named<com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar>("shadowJ
 tasks.register<Copy>("installLauncher") {
     dependsOn("shadowJar")                          // Muss ShadowJar vorher gebaut sein
     from(tasks.named("shadowJar"))                 // Quelle: Fat Jar
-    into("$buildDir/install/ArduxLauncher/lib")    // Zielverzeichnis
+    into("$buildDir/install/ArduxLauncher-$javafxPlatform/lib")    // Zielverzeichnis inkl. Plattform
     doLast {
-        println("ArduxLauncher ready in build/install/ArduxLauncher/")
+        println("ArduxLauncher ready in build/install/ArduxLauncher-$javafxPlatform/")
     }
 }

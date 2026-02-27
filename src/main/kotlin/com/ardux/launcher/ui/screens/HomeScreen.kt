@@ -13,20 +13,31 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 class HomeScreen : BorderPane() {
+    private val timeLabel = Label()
+    private val wifiLabel = Label()
+    private val btLabel = Label()
+    private val batteryLabel = Label("100%")
+
     init {
-        // Top Bar (Status)
-        val statusBar = HBox()
+        // Top Bar (Status) - Use StackPane to center the clock
+        val statusBar = StackPane()
         statusBar.styleClass.add("status-bar")
-        statusBar.alignment = Pos.CENTER_RIGHT
-        statusBar.spacing = 20.0
-        
-        val timeLabel = Label(LocalDateTime.now().format(DateTimeFormatter.ofPattern("HH:mm")))
+
+        // Center: Clock
         timeLabel.styleClass.add("status-label")
+        timeLabel.style = "-fx-font-size: 18; -fx-text-fill: white;"
         
-        val wifiLabel = Label(getWlanStatus())
+        val centerBox = HBox(timeLabel)
+        centerBox.alignment = Pos.CENTER
+        centerBox.isMouseTransparent = true // Don't block clicks to things behind it if necessary
+
+        // Right side: Icons and Buttons
+        val rightBar = HBox()
+        rightBar.alignment = Pos.CENTER_RIGHT
+        rightBar.spacing = 15.0
+        
         wifiLabel.styleClass.add("status-label")
-        
-        val batteryLabel = Label("100%")
+        btLabel.styleClass.add("status-label")
         batteryLabel.styleClass.add("status-label")
 
         val settingsBtn = Button("⚙").apply {
@@ -35,6 +46,7 @@ class HomeScreen : BorderPane() {
                 val root = scene.root as StackPane
                 root.children.add(SettingsScreen {
                     root.children.removeLast()
+                    updateStatus() // Refresh status when coming back from settings
                 })
             }
         }
@@ -48,8 +60,13 @@ class HomeScreen : BorderPane() {
             }
         }
         
-        statusBar.children.addAll(wifiLabel, batteryLabel, timeLabel, settingsBtn, powerBtn)
+        rightBar.children.addAll(wifiLabel, btLabel, batteryLabel, settingsBtn, powerBtn)
+        
+        statusBar.children.addAll(centerBox, rightBar)
         top = statusBar
+
+        // Start periodic updates
+        startStatusUpdates()
 
         // Center Content (Game Grid)
         val grid = TilePane()
@@ -85,23 +102,27 @@ class HomeScreen : BorderPane() {
         ).apply { spacing = 10.0 }
     }
 
-    private fun getWlanStatus(): String {
-        return try {
-            val netPath = java.io.File("/sys/class/net")
-            val interfaces = netPath.listFiles { _, name -> name.startsWith("w") } ?: emptyArray()
-            
-            var isConnected = false
-            for (iface in interfaces) {
-                val operstate = java.io.File(iface, "operstate").readText().trim()
-                if (operstate == "up") {
-                    isConnected = true
-                    break
-                }
-            }
-            
-            if (isConnected) "WiFi: Connected" else "WiFi: Disconnected"
-        } catch (e: Exception) {
-            "WiFi: Unknown"
-        }
+    private fun startStatusUpdates() {
+        val timeline = javafx.animation.Timeline(
+            javafx.animation.KeyFrame(javafx.util.Duration.seconds(1.0), {
+                updateStatus()
+            })
+        )
+        timeline.cycleCount = javafx.animation.Animation.INDEFINITE
+        timeline.play()
+        updateStatus() // Initial update
+    }
+
+    private fun updateStatus() {
+        val now = LocalDateTime.now()
+        timeLabel.text = now.format(DateTimeFormatter.ofPattern("HH:mm"))
+        
+        val wlanStatus = com.ardux.launcher.service.NetworkService.getWlanStatus()
+        wifiLabel.text = if (wlanStatus == "Disconnected") "󰤮 " else "󰤨 $wlanStatus"
+        
+        val btEnabled = com.ardux.launcher.service.NetworkService.isBluetoothEnabled()
+        btLabel.text = if (btEnabled) "󰂯" else "󰂲"
+        
+        // Battery status could be added here if needed via system commands
     }
 }

@@ -55,27 +55,37 @@
 }
 
 .status-bar {
-    -fx-background-color: rgba(0, 0, 0, 0.4);
+    -fx-background-color: linear-gradient(to bottom, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.2));
     background-color: rgba(0, 0, 0, 0.4);
-    -fx-padding: 10 20;
-    padding: 10 20;
+    -fx-padding: 8 30;
+    padding: 8 30;
+    -fx-border-color: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.05);
+    -fx-border-width: 0 0 1 0;
+    border-width: 0 0 1 0;
+    -fx-pref-height: 50;
 }
 
 .status-label {
-    -fx-font-size: 14;
-    font-size: 14;
-    -fx-font-weight: bold;
-    font-weight: bold;
+    -fx-font-size: 15;
+    font-size: 15;
+    -fx-font-weight: 500;
+    font-weight: 500;
     -fx-text-fill: -ardux-text-dim;
 }
 
 .power-button {
     -fx-background-color: transparent;
+    background-color: transparent;
     -fx-text-fill: -ardux-text-dim;
     -fx-font-size: 18;
+    font-size: 18;
     -fx-padding: 5 10;
+    padding: 5 10;
     -fx-cursor: hand;
+    cursor: hand;
     -fx-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
 }
 
 .power-button:hover {
@@ -107,30 +117,40 @@
 /* Power Menu Styles */
 .power-menu-container {
     -fx-background-color: rgba(15, 15, 20, 0.95);
+    background-color: rgba(15, 15, 20, 0.95);
     -fx-padding: 30;
+    padding: 30;
     -fx-background-radius: 20;
     -fx-border-color: rgba(255,255,255,0.1);
+    border-color: rgba(255,255,255,0.1);
     -fx-border-radius: 20;
+    border-radius: 20;
     -fx-spacing: 20;
 }
 
 .power-menu-title {
     -fx-text-fill: white;
     -fx-font-size: 24;
+    font-size: 24;
     -fx-font-weight: bold;
+    font-weight: bold;
 }
 
 .power-menu-button {
     -fx-background-color: rgba(255,255,255,0.05);
+    background-color: rgba(255,255,255,0.05);
     -fx-text-fill: white;
     -fx-font-size: 16;
+    font-size: 16;
     -fx-padding: 10 30;
+    padding: 10 30;
     -fx-background-radius: 10;
     -fx-pref-width: 240;
 }
 
 .power-menu-button:hover {
     -fx-background-color: -ardux-primary;
+    background-color: -ardux-primary;
     -fx-text-fill: white;
 }
 
@@ -148,8 +168,9 @@
     background-color: rgba(30, 30, 40, 0.7);
     -fx-text-fill: white;
     -fx-padding: 10;
+    padding: 10;
     -fx-border-color: -ardux-glass-border;
-    border-color: rgba(255, 255, 255, 0.1);
+    border-color: -ardux-glass-border;
     -fx-border-radius: 8;
     border-radius: 8;
 }
@@ -163,7 +184,6 @@
     -fx-padding: 15 40;
     padding: 15 40;
     -fx-background-radius: 30;
-    background-radius: 30;
 }
 
 .primary-button:hover {
@@ -174,5 +194,6 @@
 .settings-item {
     -fx-spacing: 20;
     -fx-padding: 10;
+    padding: 10;
     -fx-alignment: center-left;
 }
